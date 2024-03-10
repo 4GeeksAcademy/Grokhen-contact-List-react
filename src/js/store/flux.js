@@ -12,7 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			agenda: [],
+			pictures: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -20,10 +22,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			loadSomeData: () => {
+				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/contact_carlos")
+				.then(response => response.json())
+				.then(response => setStore({agenda:response}))
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
+			editContact: () => {
+				fetch(`https://playground.4geeks.com/apis/fake/contact/${contactId}`)
+			},
+			loadPictures: () => {
+				fetch("https://randomuser.me/api/?inc=picture")
+				.then(response => response.json())
+				.then(response => console.log(response))
+				.then(response => setStore({pictures:response}))
+			},
+	
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -36,7 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				//reset the global store
-				setStore({ demo: demo });
+				setStore({ demo: demo } );
 			}
 		}
 	};
