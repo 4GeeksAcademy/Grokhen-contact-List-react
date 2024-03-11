@@ -18,9 +18,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+			
 			loadSomeData: () => {
 				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/contact_carlos")
 				.then(response => response.json())

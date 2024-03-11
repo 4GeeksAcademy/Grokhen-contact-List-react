@@ -3,6 +3,11 @@ import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
+import { IoLocationSharp } from "react-icons/io5";
+import { FaPhone } from "react-icons/fa";
+import { IoMdMail } from "react-icons/io";
+
+
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
@@ -13,9 +18,9 @@ export const Home = () => {
 				<h1>Contac List</h1>
 				{console.log(store.pictures)}
 
-				<div className="container justify-content-center">
+				<div className="list-group">
 					{store.agenda.map((contact) => (
-						<div className="card mb-3" style={{ maxWidth: '540px' }} key={contact.id}>
+						<div className="card mb-3" key={contact.id}>
 							<div className="row g-0">
 								<div className="col-md-4">
 									<img src="..." className="img-fluid rounded-start" alt="..."></img>
@@ -29,10 +34,11 @@ export const Home = () => {
 												<span className="col fa fa-trash"></span>
 											</div>
 										</div>
-										<p className="text-muted card-text"><span className="fa-solid fa-location-dot"></span>{contact.address}</p>
-										<p className="text-muted card-text">{contact.phone}</p>
-										<p className="text-muted card-text">{contact.email}</p>
-
+										<div className="card-body">
+											<p className="text-muted card-text"><IoLocationSharp /> {contact.address}</p>
+											<p className="text-muted card-text"><FaPhone /> {contact.phone}</p>
+											<p className="text-muted card-text"><IoMdMail /> {contact.email}</p>
+										</div>
 									</div>
 								</div>
 							</div>
