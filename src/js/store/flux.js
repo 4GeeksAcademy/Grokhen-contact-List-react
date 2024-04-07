@@ -19,22 +19,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			// Use getActions to call a function within a fuction
 			
-			loadSomeData: () => {
-				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/contact_carlos")
-				.then(response => response.json())
-				.then(response => setStore({agenda:response}))
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			loadSomeData: async () => {
+				try {
+					const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen");
+					const data = await response.json();
+					setStore({agenda: data.contacts});
+				} catch (error) {
+					console.error(error);
+				}
 			},
 			editContact: () => {
-				fetch(`https://playground.4geeks.com/apis/fake/contact/${contactId}`)
+				fetch(`https://playground.4geeks.com/contact/agendas/Grokhen/contacts/${contactId}`)
 			},
-			loadPictures: () => {
-				fetch("https://randomuser.me/api/?inc=picture")
-				.then(response => response.json())
-				.then(response => console.log(response))
-				.then(response => setStore({pictures:response}))
+			loadPictures: async () => {
+				const response = await fetch("https://randomuser.me/api/?inc=picture");
+				const data = await response.json();
+				setStore({pictures: data.results[0].picture.large})
 			},
 	
 			changeColor: (index, color) => {
