@@ -16,12 +16,15 @@ export const Home = () => {
 	return (
 		<>
 			<div className="container text-center">
+				<div>
+					<h1>Contact List</h1>
+				</div>
 				<div className="gap-2">
 					<div className="d-grid gap-2 d-md-flex justify-content-md-end">
 						<button className="btn btn-success m-10" type="button" onClick={() => navigate("/newContact")}>New Contact</button>
 					</div>
 
-					<div className="list-group">
+					<div className="list-group mt-2">
 						{store.agenda.map((contact) => (
 							<ContactCard key={contact.id} cardData={contact} />
 						))}

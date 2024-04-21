@@ -5,14 +5,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			pictures: []
 		},
 		actions: {
-			
+
 			loadSomeData: async () => {
-				try {
-					const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen");
-					const data = await response.json();
-					setStore({ agenda: data.contacts });
-				} catch (error) {
-					console.error(error);
+				const store = getStore();
+				if (store.agenda.lenght != 0) {
+					try {
+						const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen");
+						const data = await response.json();
+						setStore({ agenda: data.contacts });
+					} catch (error) {
+						console.error(error);
+					}
 				}
 			},
 

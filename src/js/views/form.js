@@ -6,7 +6,7 @@ const ContactForm = () => {
 
     const navigate = useNavigate();
     const params = useParams();
-    
+
 
     const [contact, setContact] = useState({
         "name": "",
@@ -16,35 +16,31 @@ const ContactForm = () => {
     })
 
     const sendContact = async () => {
-        
+
         try {
-        if (typeof params.id === `undefined`) {
-            const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen/contacts", {
-                method: "POST",
-                body: JSON.stringify(contact),
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            console.log("post");
-            navigate("/")
-        } else {
-            const response = await fetch(`https://playground.4geeks.com/contact/agendas/Grokhen/contacts/${params.id}`, {
-                method: "PUT",
-                body: JSON.stringify(contact),
-                headers: { "Content-Type": "application/json" }
-            });
-            const data = await response.json();
-            console.log("put");
-            navigate("/")
+            if (typeof params.id === `undefined`) {
+                const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen/contacts", {
+                    method: "POST",
+                    body: JSON.stringify(contact),
+                    headers: { "Content-Type": "application/json" }
+                });
+                navigate("/")
+            } else {
+                const response = await fetch(`https://playground.4geeks.com/contact/agendas/Grokhen/contacts/${params.id}`, {
+                    method: "PUT",
+                    body: JSON.stringify(contact),
+                    headers: { "Content-Type": "application/json" }
+                });
+                navigate("/")
+            }
+        } catch (error) {
+            console.error("Error:", error);
         }
-    } catch (error) {
-        console.error("Error:", error);
-    }
-};
+    };
 
     return (
         <>
-            <form /* onSubmit={sendContact} */ className="container">
+            <form className="container mt-5">
                 <div className="col-12">
                     <label htmlFor="inputName" className="form-label text-start">Full Name</label>
                     <input
@@ -85,12 +81,17 @@ const ContactForm = () => {
                         placeholder="Enter adress">
                     </input>
                 </div>
-                <div className="d-grid mt-3">
-                    <button /* type="submit" */ className="btn btn-primary">Save1</button>
+
+            </form>
+            <div className="container text-center">
+                <div className="row align-items-center">
+                    <div className="col">
+                        <button className="btn btn-primary mt-3" onClick={() => sendContact()}>Save</button>
+                    </div>
 
                 </div>
-            </form>
-            <button onClick={()=>sendContact()}>save2</button>
+            </div>
+
         </>
     )
 }
