@@ -1,29 +1,24 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			agenda: [],
+			pictures: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+
+			loadSomeData: async () => {
+				const store = getStore();
+				if (store.agenda.lenght != 0) {
+					try {
+						const response = await fetch("https://playground.4geeks.com/contact/agendas/Grokhen");
+						const data = await response.json();
+						setStore({ agenda: data.contacts });
+					} catch (error) {
+						console.error(error);
+					}
+				}
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
